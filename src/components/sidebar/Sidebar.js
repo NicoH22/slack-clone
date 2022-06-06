@@ -14,9 +14,11 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import db from "../../firebase";
+import { useStateValue } from "../../StateProvider";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
+  const [{ user }] = useStateValue();
 
   useEffect(() => {
     //Run this code ONCE when the sidebar component load
@@ -34,7 +36,7 @@ function Sidebar() {
           <h2>NicoSlack</h2>
           <h3>
             <FiberManualRecordIcon />
-            Nico H
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />
@@ -52,9 +54,6 @@ function Sidebar() {
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
       <SidebarOption Icon={AddIcon} addChannelOption />
-
-      {/* Connexion à la DB & lister les canaux */}
-      {/* SidebarOption ... */}
       {channels.map((channel) => (
         <SidebarOption key={channel.id} title={channel.name} id={channel.id} />
       ))}

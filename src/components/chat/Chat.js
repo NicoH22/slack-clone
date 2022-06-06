@@ -32,7 +32,7 @@ function Chat() {
 
   return (
     <div className="chat">
-      {/* <h2>You are in the {roomId} room</h2> */}
+      {/* {roomId} */}
       <div className="chat_header">
         <div className="chat_headerLeft">
           <h4 className="chat_channelName">
