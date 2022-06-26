@@ -9,6 +9,7 @@ import { useStateValue } from "./StateProvider";
 
 function App() {
   const [{user}, dispatch] = useStateValue();
+  console.log(process.env.REACT_APP_APIKEY);
 
   return (
     <div className="app">

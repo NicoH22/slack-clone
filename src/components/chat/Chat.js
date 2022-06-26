@@ -5,11 +5,14 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import db from "../../firebase";
 import Message from "./Message";
+import ChatInput from "./ChatInput";
+import { doc } from "@firebase/firestore";
 
 function Chat() {
   const { roomId } = useParams();
   const [roomDetails, setRoomDetails] = useState(null);
   const [roomMessages, setRoomMessages] = useState([]);
+  const [roomMessageId, setRoomMessageId] = useState(null);
 
   useEffect(() => {
     if (roomId) {
@@ -26,9 +29,6 @@ function Chat() {
         setRoomMessages(snapshot.docs.map((doc) => doc.data()))
       );
   }, [roomId]);
-
-  console.log(roomDetails);
-  console.log(roomMessages);
 
   return (
     <div className="chat">
@@ -49,7 +49,7 @@ function Chat() {
       <div className="chat_messages">
         {roomMessages.map(({ message, timestamp, user, avatar }) => (
           <Message
-            key={user}
+            key={message}
             message={message}
             timestamp={timestamp}
             user={user}
@@ -57,6 +57,7 @@ function Chat() {
           />
         ))}
       </div>
+      <ChatInput channelId={roomId} channelName={roomDetails?.name} />
     </div>
   );
 }
